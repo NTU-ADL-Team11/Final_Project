@@ -8,7 +8,7 @@ import random
 import chinese_converter
 import json
 
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="")
 MODEL = "gpt-3.5-turbo"
 # FIXME: Add diversity
 INSTRUCTION = {"question_answering": question_answering_context,
