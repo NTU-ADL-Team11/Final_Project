@@ -97,7 +97,8 @@ challenges = [
 ]
 
 question_answering_context = [
-    "請根據以下聖經文本，提出三至七個問題以及答案。請用'question：..., answer：...'的json格式"
+    "請根據以下聖經文本，提出一個問題",
+    "請根據以下聖經文本，簡短回答以下問題"
 ]
 
 preach_context = [
