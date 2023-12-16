@@ -9,7 +9,7 @@ import chinese_converter
 import json
 
 client = OpenAI(api_key="")
-MODEL = "gpt-3.5-turbo"
+MODEL = "gpt-3.5-turbo-16k"
 # FIXME: Add diversity
 INSTRUCTION = {"question_answering": question_answering_context,
                "preach": preach_context,
