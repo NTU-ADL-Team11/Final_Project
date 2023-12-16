@@ -18,6 +18,7 @@ INSTRUCTION = {"question_answering": question_answering_context,
 INSTRUCTION_NO_INPUT = {"pray": "請根據聖經為使用者的處境禱告。", "consult": "請根據聖經幫助使用者面對他的處境。"}
 
 def inference(prompt):
+    
     chat_completion = client.chat.completions.create(
         messages=[
             {
@@ -64,22 +65,18 @@ def random_split_scope(scope, task_type=None):
         return ["".join(scope["context"].tolist())]
     
     slen = len(scope)
-    try:
-        splitat = random.sample(range(slen), 3)
-    except:
-        splitat = []
-
-    splitat.sort()
-    splitat.insert(0, 0)
-
-    for i in range(1, len(splitat)):
-        if splitat[i] - splitat[i-1] < 3:
-            splitat[i] = splitat[i-1] + 3
+    splitat = list(range(0, slen, slen//4))
+    if slen-1 == splitat[-1]:
+        splitat[-1] += 1
+    else:
+        splitat.append(slen)
 
     splitat = list(filter(lambda x: x<slen, splitat))
     splitat.append(slen)
+
     scope_ls = ["".join(scope[splitat[i]:splitat[i+1]]["context"].tolist()) for i in range(len(splitat)-1)]
-    scope_ls.append("".join(scope_ls))
+    if slen <= 40:
+        scope_ls.append("".join(scope_ls))
     return scope_ls
 
 
