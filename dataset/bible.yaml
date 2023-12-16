@@ -63,7 +63,7 @@ books:
 - John2
 - John3
 - Jude
-- Relevation
+- Revelation
 num_chapters:
   Genesis: 50
   Exodus: 40
@@ -129,4 +129,4 @@ num_chapters:
   John2: 1
   John3: 1
   Jude: 1
-  Relevation: 22
+  Revelation: 22
