@@ -18,7 +18,6 @@ books:
 - Esther
 - Job
 - Psalms
-- Proverbs
 - Ecclesiastes
 - SongOfSolomon
 - Isaiah
@@ -85,7 +84,6 @@ num_chapters:
   Esther: 10
   Job: 42
   Psalms: 150
-  # Proverbs: 31
   Ecclesiastes: 12
   SongOfSolomon: 8
   Isaiah: 66
