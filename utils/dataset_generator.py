@@ -57,8 +57,6 @@ def situation_prompt_input_generator():
                                         .replace("\n", "").replace("麵", "面")
             situation.append(situation_output)
             progress_bar.update(1)
-            break
-        break
     return situation
 
 def random_split_scope(scope, task_type=None):
@@ -75,8 +73,8 @@ def random_split_scope(scope, task_type=None):
     splitat.insert(0, 0)
 
     for i in range(1, len(splitat)):
-        if splitat[i] - splitat[i-1] < 5:
-            splitat[i] = splitat[i-1] + 5
+        if splitat[i] - splitat[i-1] < 3:
+            splitat[i] = splitat[i-1] + 3
 
     splitat = list(filter(lambda x: x<slen, splitat))
     splitat.append(slen)
@@ -109,7 +107,7 @@ def main():
                 scope = bible.loc[bible.apply(lambda x: f"{book}:{chap}:" in x["id"], axis=1)]
                 scope_ls = random_split_scope(scope, task_type=task_type)
                 for input_context in scope_ls:
-                    sits = random.sample(situation, 1) if task_type == "pray" or task_type == "consult" else [None]
+                    sits = random.sample(situation, 5) if task_type == "pray" or task_type == "consult" else [None]
 
                     for sit in sits:
                         if task_type == "question_answering":
