@@ -146,7 +146,7 @@ def main():
 
     # write to file
     print("******* Writing to File *******")
-    with open("./dataset/processed_data/train.json1", "w") as f:
+    with open("./dataset/processed_data/train.json2", "w") as f:
         json.dump(tuning_data, f, indent=4)
     with open("./dataset/processed_data/train_metadata2.json", "w") as f:
         json.dump(counter, f, indent=4)

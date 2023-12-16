@@ -148,7 +148,7 @@ def main():
     print("******* Writing to File *******")
     with open("./dataset/processed_data/train.json1", "w") as f:
         json.dump(tuning_data, f, indent=4)
-    with open("./dataset/processed_data/train_metadata2.json", "w") as f:
+    with open("./dataset/processed_data/train_metadata1.json", "w") as f:
         json.dump(counter, f, indent=4)
 
 if __name__ == "__main__":
