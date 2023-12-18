@@ -64,19 +64,11 @@ def random_split_scope(scope, task_type=None):
     if task_type == "question_answering" or task_type == "preach":
         return ["".join(scope["context"].tolist())]
     
-    slen = len(scope)
-    splitat = list(range(0, slen, 6))
-    if slen-1 == splitat[-1]:
-        splitat[-1] += 1
-    else:
-        splitat.append(slen)
-
-    splitat = list(filter(lambda x: x<slen, splitat))
-    splitat.append(slen)
-
-    scope_ls = ["".join(scope[splitat[i]:splitat[i+1]]["context"].tolist()) for i in range(len(splitat)-1)]
-    if slen <= 35:
-        scope_ls.append("".join(scope_ls))
+    full = "".join(scope["context"].tolist())
+    scope_ls = []
+    half_length = len(full) // 2
+    scope_ls.append(full[:half_length])
+    scope_ls.append(full[half_length:])
     return scope_ls
 
 
@@ -92,7 +84,7 @@ def main():
 
     # Data with scripture input
     print("******* Data with scripture input *******")
-    progress_bar = tqdm(range(3136), position=0, leave=True)
+    progress_bar = tqdm(range(4920), position=0, leave=True)
     for task_type in ["pray", "consult"]:
         book_scope = bible_metadata["books"][bible_metadata["books"].index("Matthew"):] \
                         if task_type == "pray" or task_type == "consult" else bible_metadata["books"]
@@ -104,7 +96,7 @@ def main():
                 scope = bible.loc[bible.apply(lambda x: f"{book}:{chap}:" in x["id"], axis=1)]
                 scope_ls = random_split_scope(scope, task_type=task_type)
                 for input_context in scope_ls:
-                    sits = random.sample(situation, 5) if task_type == "pray" or task_type == "consult" else [None]
+                    sits = random.sample(situation, 3) if task_type == "pray" or task_type == "consult" else [None]
 
                     for sit in sits:
                         if task_type == "question_answering":
@@ -128,8 +120,8 @@ def main():
                             output = chinese_converter.to_traditional(inference(prompt).replace("\n", "")).replace("麵", "面")
                             tuning_data.append({"id": str(uuid.uuid4()), "instruction": instr, "input": prompt_input, "output": output})
                             counter[task_type] += 1
+                        progress_bar.update(1)
                 
-                progress_bar.update(1)
 
     # data without input prompt (pray and consult)
     print("******* Data without scripture input *******")

@@ -64,21 +64,11 @@ def random_split_scope(scope, task_type=None):
     if task_type == "question_answering" or task_type == "preach":
         return ["".join(scope["context"].tolist())]
     
-    slen = len(scope)
-    splitat = list(range(0, slen, 6))
-    if slen-1 == splitat[-1]:
-        splitat[-1] += 1
-    else:
-        splitat.append(slen)
-
-    splitat = list(filter(lambda x: x<slen, splitat))
-    splitat.append(slen)
-
-    scope_ls = ["".join(scope[splitat[i]:splitat[i+1]]["context"].tolist()) for i in range(len(splitat)-1)]
-    if slen <= 35:
-        scope_ls.append("".join(scope_ls))
+    scope_ls = ["".join(scope["context"].tolist())]
+    half_length = len(scope_ls[0])
+    scope_ls.append(scope_ls[0][:half_length])
+    scope_ls.append(scope_ls[0][half_length:])
     return scope_ls
-
 
 def main():
     situation = situation_prompt_input_generator()
