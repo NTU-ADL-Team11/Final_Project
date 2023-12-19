@@ -1,1 +1,0 @@
-python3 ./utils/dataset_generator2.py

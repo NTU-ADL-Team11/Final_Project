@@ -8,7 +8,7 @@ import random
 import chinese_converter
 import json
 
-client = OpenAI(api_key="")
+client = OpenAI(api_key="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")
 MODEL = "gpt-3.5-turbo-16k"
 # FIXME: Add diversity
 INSTRUCTION = {"question_answering": question_answering_context,
@@ -64,11 +64,21 @@ def random_split_scope(scope, task_type=None):
     if task_type == "question_answering" or task_type == "preach":
         return ["".join(scope["context"].tolist())]
     
-    scope_ls = ["".join(scope["context"].tolist())]
-    half_length = len(scope_ls[0])
-    scope_ls.append(scope_ls[0][:half_length])
-    scope_ls.append(scope_ls[0][half_length:])
+    slen = len(scope)
+    splitat = list(range(0, slen, 6))
+    if slen-1 == splitat[-1]:
+        splitat[-1] += 1
+    else:
+        splitat.append(slen)
+
+    splitat = list(filter(lambda x: x<slen, splitat))
+    splitat.append(slen)
+
+    scope_ls = ["".join(scope[splitat[i]:splitat[i+1]]["context"].tolist()) for i in range(len(splitat)-1)]
+    if slen <= 35:
+        scope_ls.append("".join(scope_ls))
     return scope_ls
+
 
 def main():
     situation = situation_prompt_input_generator()
