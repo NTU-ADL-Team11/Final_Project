@@ -93,7 +93,7 @@ def main():
     # Data with scripture input
     print("******* Data with scripture input *******")
     progress_bar = tqdm(range(3136), position=0, leave=True)
-    for task_type in ["question_answering", "preach"]:
+    for task_type in ["question_answering", "preach", "pray", "consult"]:
         book_scope = bible_metadata["books"][bible_metadata["books"].index("Matthew"):] \
                         if task_type == "pray" or task_type == "consult" else bible_metadata["books"]
         if task_type == "pray" or task_type == "consult":
